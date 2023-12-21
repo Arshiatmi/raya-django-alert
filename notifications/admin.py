@@ -18,8 +18,12 @@ class NotificationsAdmin(admin.ModelAdmin):
 
     def get_image(self, obj):
         if obj.image:
-            return format_html(f"<img src='{obj.image.url}' alt='{obj.title}'/>")
+            return format_html(f"<img src='{obj.image.url}' alt='{obj.title}' class='raya-django-notifications-image'/>")
         else:
-            return format_html(f"<img src='' alt='{obj.title}'/>")
+            # TODO: Add Default Image Here
+            return format_html(f"<img src='' alt='{obj.title}' class='raya-django-notifications-image'/>")
 
     get_image.short_description = _("Image")
+
+    class Media:
+        css = {"all": ("/static/admin/style.css",)}

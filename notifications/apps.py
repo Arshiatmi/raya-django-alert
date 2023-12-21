@@ -6,3 +6,7 @@ class NotificationsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'notifications'
     verbose_name = _("Notifications")
+
+    def ready(self):
+        from django.contrib.admin import site
+        site.index_template = 'admin/notifications_index.html'

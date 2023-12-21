@@ -14,11 +14,11 @@ class Notifications(models.Model):
     title = models.CharField(max_length=199, verbose_name=_("Title"))
     text = models.TextField(verbose_name=_("Text"))
     seen_by = models.ManyToManyField(
-        get_user_model(), verbose_name=_("Seen By"), related_name="seen_by", null=True, blank=True, editable=False)
+        get_user_model(), verbose_name=_("Seen By"), related_name="seen_bies", editable=False, blank=True)
     need_to_seen_by = models.IntegerField(default=3,
                                           choices=NEED_TO_SEEN_OPTIONS, verbose_name=_("Need To Seen By"))
     people_to_see = models.ManyToManyField(get_user_model(), verbose_name=_(
-        "People To See Notifications"), related_name="people_to_sees", null=True, blank=True,
+        "People To See Notifications"), related_name="people_to_sees", blank=True,
         help_text="This Field Must Be Setted If You Setted The Field 'Need To Seen By' To 'Custom User/Users'")
     remove_after_seen = models.BooleanField(
         default=True, verbose_name=_("Remove After Seen"))
@@ -37,6 +37,8 @@ class Notifications(models.Model):
             )
         except KeyError:
             return "<Invalid Notification Format>"
+        except RecursionError:
+            return "- Nothing Yet -"
 
     class Meta:
         verbose_name = _("Notification")
